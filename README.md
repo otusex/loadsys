@@ -32,6 +32,15 @@ passwd root
 
 If eneble SELinux wewill not be able to login, but we can set selinux=0 at system start
 
+######################
+
+systemd.unit = emergency.target Enters minimum mode when the minimum number of system units is loaded.
+Root password required.
+To see that only a very limited number of unit files are loaded, you can issue the systemctl list-units command.
+
+systemd.unit = rescue.target The command starts up a few more system units to bring you into a more complete operational mode. Root password required.
+To see that only a very limited number of unit files are loaded, you can issue the command systemctl list-units.
+
 # System without /boot part, only LVM
 
 
