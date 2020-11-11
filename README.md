@@ -1,5 +1,37 @@
 # Initrd add module describe in initrd.txt
 
+# To the system without a password:
+
+1. We go into the bootloader before the system starts (before the download
+   starts, you need to have time to click on the button e
+
+2. Instead of console=tty0 console=ttyS0,115200n8 we set init=/bin/bash and and press Ctrl+X
+
+3. remount / and set pass root
+```bash
+mount -o remount,rw /
+
+passwd root
+```
+
+If eneble SELinux wewill not be able to login, but we can set selinux=0 at system start
+
+#####################
+
+1. We go into the bootloader before the system starts (before the download
+   starts, you need to have time to click on the button e
+
+2. Instead of console=tty0 console=ttyS0,115200n8 we set rd.break and and press Ctrl+X
+
+3. remount /sysroot and set pass root
+```bash
+mount -o remount,rw /sysroot
+chroot /sysroot
+passwd root
+```
+
+If eneble SELinux wewill not be able to login, but we can set selinux=0 at system start
+
 # System without /boot part, only LVM
 
 
