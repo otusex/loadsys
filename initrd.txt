@@ -4,6 +4,9 @@ Create folder 01otus
 
 mkdir 01otus
 
+Go to 01otus
+cd 01otus
+
 Create two scripta module-setup.sh, otus.sh and chmod +x on this scripts
 
 cat << EOF > module-setup.sh
