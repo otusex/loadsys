@@ -1,3 +1,5 @@
+# Initrd add module describe in initrd.txt
+
 # System without /boot part, only LVM
 
 
