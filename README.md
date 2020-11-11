@@ -226,7 +226,6 @@ EOF
 reboot
 
 
-I disable /dev/sda
 
 ```bash
 [root@lvm vagrant]# lsblk
