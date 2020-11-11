@@ -126,8 +126,63 @@ Install patch grub2
 yum install grub2 -y --nogpgcheck
 ```
 
+FSTAB
+
+```bash
+cat << EOF > /etc/fstab
+/dev/mapper/otus_root-root  /  xfs     defaults        0 0
+EOF
+```
+
+Change /etc/default/grub
+
+```bash
+cat << EOF > /etc/default/grub
+GRUB_TIMEOUT=1
+GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+GRUB_DEFAULT=saved
+GRUB_DISABLE_SUBMENU=true
+GRUB_TERMINAL_OUTPUT="console"
+GRUB_CMDLINE_LINUX="no_timer_check rd.lvm.lv=otus_root/root console=tty0 console=ttyS0,115200n8 net.ifnames=0 biosdevname=0 elevator=noop crashkernel=auto"
+GRUB_DISABLE_RECOVERY="true"
+EOF
+```
+
+Reconfigure grub conf and dracut
+
+```bash
+grub2-mkconfig -o /boot/grub2/grub.cfg
+dracut -f -v /boot/initramfs-3.10.0-1127.el7.x86_64.img
+```
+
+Install Grub
+
+```bash
+grub2-install /dev/sdb
+```
+
+Disable Selinux
+
+```bash
+
+cat << EOF > /etc/selinux/config
+SELINUX=disabled
+EOF
+```
+
+reboot
 
 
+I disable /dev/sda
+
+```bash
+[root@lvm vagrant]# lsblk
+NAME               MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sda                  8:0    0   2G  0 disk
+`-sda1               8:1    0   2G  0 part
+  `-otus_root-root 253:0    0   2G  0 lvm  /
+sdb                  8:16   0   2G  0 disk
+```
 
 
 
