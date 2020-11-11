@@ -1,5 +1,15 @@
 # Initrd add module describe in initrd.txt
 
+# Install the system with LVM, then rename VG
+
+1. Show our Volume Group: vgdisplay
+2. Change Volume Group: vgrename cold_name new_name
+3. Change /etc/fstab
+4. Change /etc/default/grub in GRUB_CMDLINE_LINUX change the old name to a new one in values rd.lvm.lv
+5. grub2-mkconfig -o /boot/grub2/grub.cfg
+6. mkinitrd -f -v /boot/initramfs-$(uname -r).img $(uname -r)
+7. We reboot the virtual machine, now our system boots with the new name VG
+
 # To the system without a password:
 
 1. We go into the bootloader before the system starts (before the download
